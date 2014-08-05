@@ -1,5 +1,6 @@
 module.exports = function Route(app) {
 	var drawings = {};
+	var temp;
 	var drawing = [];
 	var counter = 0;
 
@@ -22,8 +23,14 @@ module.exports = function Route(app) {
 	})
 
 	app.io.route('erase_whitebaord', function(req) {
+		temp = drawings;
 		drawings = {};
 		counter = 0;
 		app.io.broadcast('new_whiteboard');
+	})
+
+	app.io.route('undo_reset', function(req) {
+		app.io.broadcast('old_drawings', temp);
+		temp = false;
 	})
 }

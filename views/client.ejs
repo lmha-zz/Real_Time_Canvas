@@ -28,10 +28,12 @@
 		}
 
 		io.on('old_drawings', function(drawings) {
-			for(x in drawings) {
-				for (var i = 0; i < drawings[x].length; i++) {
-					App.draw(drawings[x][i])
-				};
+			if(drawings != false) {
+				for(x in drawings) {
+					for (var i = 0; i < drawings[x].length; i++) {
+						App.draw(drawings[x][i])
+					};
+				}
 			}
 		})
 
@@ -67,6 +69,9 @@
 			$('#reset').click(function() {
 				io.emit('erase_whitebaord');
 			})
+			$('#undo_reset').click(function() {
+				io.emit('undo_reset');
+			})
 		})
 
 	</script>
@@ -74,5 +79,6 @@
 <body>
 	<canvas id="canvas" width="1200px" height="600px" style="margin: 0 auto; border:1px solid black;"></canvas>
 	<button id="reset">Erase Whiteboard</button>
+	<button id="undo_reset">Undo Reset</button>
 </body>
 </html>
